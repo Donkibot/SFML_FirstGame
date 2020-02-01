@@ -1,0 +1,81 @@
+﻿  Game.cpp
+D:\Visual Studio Code Projects\GameSFML\Game.cpp(22,63): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\Visual Studio Code Projects\GameSFML\Game.cpp(22,46): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\Visual Studio Code Projects\GameSFML\Game.cpp(23,45): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Visual Studio Code Projects\GameSFML\Game.cpp(23,28): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Visual Studio Code Projects\GameSFML\Game.cpp(81,58): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\Visual Studio Code Projects\GameSFML\Game.cpp(82,71): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+D:\Visual Studio Code Projects\GameSFML\Game.cpp(82,75): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\Visual Studio Code Projects\GameSFML\Game.cpp(83,59): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\Visual Studio Code Projects\GameSFML\Game.cpp(84,69): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+D:\Visual Studio Code Projects\GameSFML\Game.cpp(84,76): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\Visual Studio Code Projects\GameSFML\Game.cpp(147,22): warning C4018: '<': signed/unsigned mismatch
+D:\Visual Studio Code Projects\GameSFML\Game.cpp(268,10): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Visual Studio Code Projects\GameSFML\Game.cpp(284,74): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\Visual Studio Code Projects\GameSFML\Game.cpp(284,50): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\Visual Studio Code Projects\GameSFML\Game.cpp(317,79): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+D:\Visual Studio Code Projects\GameSFML\Game.cpp(317,48): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+  Zombie.cpp
+  main.cpp
+  Generating code
+  3 of 846 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  GameSFML.vcxproj -> D:\Visual Studio Code Projects\GameSFML\Release\GameSFML.exe
