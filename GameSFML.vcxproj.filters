@@ -63,7 +63,7 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Level.cpp">
+    <ClCompile Include="Text_Information.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,7 +113,7 @@
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Level.h">
+    <ClInclude Include="Text_Information.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

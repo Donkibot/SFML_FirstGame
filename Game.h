@@ -11,7 +11,6 @@
 #include "Zombie.h"
 #include "Creature.h"
 #include "Camera.h"
-#include "level.h"
 
 /*
     Клас, що відповідальний за ігровий процес
@@ -65,9 +64,6 @@ private:
     int windowDown;
     int windowLeft;
     int windowRight;
-
-    //Мапа рівня
-    //Level lvl;
 
 
     //Приватній функції

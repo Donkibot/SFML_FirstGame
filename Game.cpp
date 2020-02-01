@@ -20,9 +20,9 @@ void Game::upadateEvents()
 		switch (this->evnt.type) {
 		case (sf::Event::Closed): this->window->close(); break;
 		case(sf::Event::Resized): {
-				sf::FloatRect visibleArea(0, 0, evnt.size.width, evnt.size.height);
-				view->setSize(evnt.size.width, evnt.size.height);
-			}
+			sf::FloatRect visibleArea(0, 0, evnt.size.width, evnt.size.height);
+			view->setSize(evnt.size.width, evnt.size.height);
+		}
 		}
 	}
 }
@@ -77,8 +77,7 @@ void Game::updateInput()
 
 void Game::updateCamera()
 {
-	camera.setViewCoord(player->getPos().x, player->getPos().y);
-
+	//camera.setViewCoord(player->getPos().x, player->getPos().y);
 	windowTop = window->mapPixelToCoords(sf::Vector2i(0, 0)).y;
 	windowDown = window->mapPixelToCoords(sf::Vector2i(0, view->getSize().y)).y;
 	windowLeft = window->mapPixelToCoords(sf::Vector2i(0, 0)).x;
@@ -184,12 +183,16 @@ void Game::updateCollision()
 
 void Game::spawnEnemies()
 {
-	if (enemyClock.getElapsedTime().asSeconds() > 2.f && numOfEnemies < maxNumOfEnemies) {
+	float spawnAngle = (rand() % 360) * (3.14 / 180);
+	float xSpawn = view->getCenter().x + cos(spawnAngle) * view->getSize().x;
+	float ySpawn = view->getCenter().y + sin(spawnAngle) * view->getSize().x;
+
+	if (enemyClock.getElapsedTime().asSeconds() > 1.5f && numOfEnemies < maxNumOfEnemies) {
 		if (numOfEnemies % 5 == 4) {
-			this->enemies.push_back(new Creature(80.f, 80.f));
+			this->enemies.push_back(new Creature(xSpawn, ySpawn));
 		}
 		else
-			this->enemies.push_back(new Zombie(80.f, 80.f));
+			this->enemies.push_back(new Zombie(xSpawn, ySpawn));
 		numOfEnemies++;
 		enemyClock.restart();
 	}
@@ -284,7 +287,8 @@ void Game::initWindow()
 void Game::initCamera()
 {
 	view = camera.getView();
-	view->reset(sf::FloatRect(0, 0, videoMode.width * 1.2, videoMode.height * 1.2));
+	view->reset(sf::FloatRect(0, 0, videoMode.width, videoMode.height));
+	view->zoom(1.5);
 }
 
 void Game::initLevel()
@@ -295,6 +299,8 @@ void Game::initLevel()
 void Game::initBackGround()
 {
 	backGround.setTexture(*stuff->getTexture("BackGround"));
+	backGround.scale(1.5,1.5);
+	backGround.move(-600,-240);
 }
 
 void Game::initVariables()
@@ -316,7 +322,7 @@ void Game::initVariables()
 	ifs.close();
 
 	numOfEnemies = 0;
-	maxNumOfEnemies = 30;
+	maxNumOfEnemies = 100;
 }
 
 void Game::initPlayer()

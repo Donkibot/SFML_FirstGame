@@ -166,11 +166,11 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMap.cpp" />
-    <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Stuff.cpp" />
+    <ClCompile Include="Text_Information.cpp" />
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -184,11 +184,11 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMap.h" />
-    <ClInclude Include="Level.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Stuff.h" />
+    <ClInclude Include="Text_Information.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <ItemGroup>
