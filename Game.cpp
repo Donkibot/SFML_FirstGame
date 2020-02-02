@@ -5,13 +5,13 @@ Game::Game()
 	initVariables();
 	initWindow();
 	initStuff();
-	initLevel();
 	initBackGround();
 	initSound();
 	initAim();
 	initEnemies();
 	initPlayer();
 	initCamera();
+	initText();
 }
 
 void Game::upadateEvents()
@@ -37,9 +37,9 @@ void Game::update()
 	updatePlayer();
 	spawnEnemies();
 	updateEnemies();
+	updateText();
 	updateCollision();
 	updateCamera();
-	updateWindow();
 }
 
 void Game::updateInput()
@@ -84,10 +84,6 @@ void Game::updateCamera()
 	windowRight = window->mapPixelToCoords(sf::Vector2i(view->getSize().x, 0)).x;
 }
 
-void Game::updateWindow()
-{
-	window->setView(*view);
-}
 
 void Game::updatePlayer()
 {
@@ -147,7 +143,7 @@ void Game::updateCollision()
 			for (int i = 0; i < enemies.size(); i++) {
 				if (counter == i) continue;
 				if (enemies.at(i)->isAlive())
-					enemy->getCollision().checkDotCollision(enemies.at(i)->getCollision(), 0.f, 2.f);
+					enemy->getCollision().checkDotCollision(enemies.at(i)->getCollision(), 2.f, 0.f);
 			}
 		}
 		if (enemy->isAlive()) {
@@ -181,6 +177,14 @@ void Game::updateCollision()
 	}
 }
 
+void Game::updateText()
+{
+	if(player->getHp() >= 0)
+	lifeText->setString("Life: " + std::to_string(player->getHp()));
+
+	scoreText->setString("Score: " + std::to_string(score));
+}
+
 void Game::spawnEnemies()
 {
 	float spawnAngle = (rand() % 360) * (3.14 / 180);
@@ -196,6 +200,29 @@ void Game::spawnEnemies()
 		numOfEnemies++;
 		enemyClock.restart();
 	}
+}
+
+void Game::initText()
+{
+	lifeText = new Text_Information();
+	scoreText = new Text_Information();
+	endText = new Text_Information();
+
+	lifeText->initFont("Fonts/ENGR.TTF");
+	scoreText->initFont("Fonts/ENGR.TTF");
+	endText->initFont("Fonts/ENGR.TTF");
+
+	lifeText->setString("Life: ");
+	scoreText->setString("Score: " + std::to_string(windowLeft));
+	endText->setString("YOU DIED");
+
+	lifeText->setPosition(sf::Vector2f(windowLeft, windowTop));
+	scoreText->setPosition(sf::Vector2f(windowLeft + 300, windowTop));
+	endText->setCenterPosition(window->mapPixelToCoords((sf::Vector2i)view->getCenter()));
+
+	endText->setScale(sf::Vector2f(3,3));
+	endText->setColor(sf::Color::Red);
+
 }
 
 void Game::updateEnemies()
@@ -217,6 +244,9 @@ void Game::updateEnemies()
 		if (enemy->getState() == Dying) {
 			enemy->dyingProcess();
 			audio["ENEMY_HIT"]->play(2);
+			if (enemy->getState() == Dead) {
+				score++;
+			}
 		}
 		counter++;
 	}
@@ -230,8 +260,6 @@ void Game::render()
 	//-----------------------------------------------//
 
 	window->draw(backGround);
-
-	//lvl.Draw(*window);
 
 	for (auto* b : bullets) {
 		b->render(this->window);
@@ -250,7 +278,10 @@ void Game::render()
 	}
 
 	this->aim->render(this->window);
-
+	window->draw(*lifeText);
+	window->draw(*scoreText);
+	if(player->getState() == Dead)
+	window->draw(*endText);
 	//-----------------------------------------------//
 	this->window->display();
 }
@@ -289,12 +320,13 @@ void Game::initCamera()
 	view = camera.getView();
 	view->reset(sf::FloatRect(0, 0, videoMode.width, videoMode.height));
 	view->zoom(1.5);
+	window->setView(*view);
+	windowTop = window->mapPixelToCoords(sf::Vector2i(0, 0)).y;
+	windowDown = window->mapPixelToCoords(sf::Vector2i(0, view->getSize().y)).y;
+	windowLeft = window->mapPixelToCoords(sf::Vector2i(0, 0)).x;
+	windowRight = window->mapPixelToCoords(sf::Vector2i(view->getSize().x, 0)).x;
 }
 
-void Game::initLevel()
-{
-	//lvl.LoadFromFile("map1.tmx");
-}
 
 void Game::initBackGround()
 {

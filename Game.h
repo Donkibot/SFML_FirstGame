@@ -11,6 +11,8 @@
 #include "Zombie.h"
 #include "Creature.h"
 #include "Camera.h"
+#include "Text_Information.h"
+
 
 /*
     Клас, що відповідальний за ігровий процес
@@ -40,6 +42,7 @@ private:
     float lastFPSTime = 0;
     float dt;
     int fps;
+    int score;
     unsigned framerate_limit;
     bool vertical_sync_enabled;
 
@@ -51,6 +54,10 @@ private:
     std::map<std::string, Audio*> audio;
     std::vector<Bullet*> bullets;
     sf::Sprite backGround;
+    Text_Information* lifeText;
+    Text_Information* scoreText;
+    Text_Information* endText;
+
     //Вороги
     std::vector<Enemy*> enemies;
     int numOfEnemies;
@@ -69,7 +76,6 @@ private:
     //Приватній функції
     void initWindow();
     void initCamera();
-    void initLevel();
     void initBackGround();
     void initVariables();
     void initPlayer();
@@ -80,17 +86,18 @@ private:
     void upadateEvents();
     void render();
     void spawnEnemies();
+    void initText();
+
 
     void update();
     void updateDt(); 
     void updateFPS();
     void updateInput();
     void updateCamera();
-    void updateWindow();
     void updatePlayer();
     void updateEnemies();
     void updateBullets();
     void updateCollision();
-
+    void updateText();
 };
 

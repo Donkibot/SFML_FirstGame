@@ -38,7 +38,7 @@ private:
 		this->deadSprites = creatureDead;
 		this->fireRate = 2.f;
 		hp = hpMax = 20;
-		damage = 4;
+		damage = 1;
 		this->animation = new Animation;
 		state = Alive;
 		this->movementSpeed = 1.2f;

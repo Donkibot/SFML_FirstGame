@@ -12,31 +12,6 @@ public:
 		delete firstSprite;
 	}
 
-
-	//bool checkDotCollision(Collision& second, float strength, float weight) {
-	//	secondSprite = second.getSprite();
-	//	float firstX = firstSprite->getGlobalBounds().left;
-	//	float firstY = firstSprite->getGlobalBounds().top;
-	//	float firstW = firstSprite->getGlobalBounds().width;
-	//	float firstH = firstSprite->getGlobalBounds().height;
-	//	float secondCenterX = secondSprite->getGlobalBounds().left+ secondSprite->getGlobalBounds().width/2;
-	//	float secondCenterY = secondSprite->getGlobalBounds().top + secondSprite->getGlobalBounds().height / 2;
-
-
-	//	if (firstSprite->getGlobalBounds().contains(secondCenterX, secondCenterY)) {
-	//		if (firstX + firstW / 2 < secondCenterX)
-	//			move(-strength, (rand() % 20 / 10.f) - 1.f, weight);
-	//		else if (firstX + firstW / 2 > secondCenterX)
-	//			move(strength, (rand() % 20 / 10.f) - 1.f, weight);
-	//		if (firstY + firstH / 2 < secondCenterY)
-	//			move((rand() % 20 / 10.f) - 1.f, -strength, weight);
-	//		else if (firstY + firstH / 2 > secondCenterY)
-	//			move((rand() % 20 / 10.f) - 1.f, strength, weight);
-	//		return true;
-	//	}
-	//	return false;
-	//}
-
 	bool checkDotCollision(Collision& second, float firstOffset, float secondOffset) {
 		secondSprite = second.getSprite();
 		float firstX = firstSprite->getGlobalBounds().left;
@@ -72,10 +47,6 @@ public:
 		return false;
 	}
 
-	/*void move(float x, float y, float secondOffset) {
-			firstSprite->move(x, y);
-			secondSprite->move(-x*(1-weight), -y * (1 - weight));
-	}*/
 	void move(float x, float y, sf::Sprite* sprite) {
 			sprite->move(x, y);
 	}

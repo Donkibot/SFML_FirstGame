@@ -16,12 +16,12 @@ Player::~Player()
 void Player::initVariables() {
 	liveSprites = playerRun;
 	deadSprites = playerDead;
-	fireRate = 0.4f;
+	fireRate = 0.3f;
 	hp = hpMax = 20;
 	damage = 5;
 	animation = new Animation;
 	state = Alive;
-	movementSpeed = 1.9f;
+	movementSpeed = 2.0f;
 	stuff = Stuff::instance();
 }
 
