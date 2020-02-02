@@ -53,9 +53,9 @@ int& Character::getHp()
 
 void Character::attack(int& hp)
 {
+	if(hp>0)
 	if (canAttack()) {
 		hp -= this->damage;
-		std::cout << hp << std::endl;
 	}
 }
 

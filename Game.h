@@ -12,6 +12,7 @@
 #include "Creature.h"
 #include "Camera.h"
 #include "Text_Information.h"
+#include "Menu.h"
 
 
 /*
@@ -39,6 +40,7 @@ private:
     sf::Clock dtClock;
     sf::Clock fpsClock;
 
+    int gameStatus;
     float lastFPSTime = 0;
     float dt;
     int fps;
@@ -49,6 +51,10 @@ private:
     Player* player;
     Aim* aim;
     Stuff* stuff;
+
+
+    //Меню
+    Menu* menu;
 
     //Ресурси
     std::map<std::string, Audio*> audio;
@@ -75,6 +81,7 @@ private:
 
     //Приватній функції
     void initWindow();
+    void initMenu();
     void initCamera();
     void initBackGround();
     void initVariables();

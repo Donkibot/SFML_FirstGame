@@ -42,3 +42,8 @@ void Audio::setVolume(int vol)
 	this->volume = vol < 0 ? 0 : vol > 100 ? 100 : vol;
 	sound->setVolume(volume);
 }
+
+void Audio::setLoop(bool loop)
+{
+	sound->setLoop(loop);
+}

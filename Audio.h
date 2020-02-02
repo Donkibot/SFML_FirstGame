@@ -16,5 +16,6 @@ public:
 	void play();
 	void play(int second);
 	void setVolume(int vol);
+	void setLoop(bool loop);
 };
 

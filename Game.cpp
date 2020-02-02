@@ -11,6 +11,7 @@ Game::Game()
 	initEnemies();
 	initPlayer();
 	initCamera();
+	initMenu();
 	initText();
 }
 
@@ -22,7 +23,32 @@ void Game::upadateEvents()
 		case(sf::Event::Resized): {
 			sf::FloatRect visibleArea(0, 0, evnt.size.width, evnt.size.height);
 			view->setSize(evnt.size.width, evnt.size.height);
+			break;
 		}
+		case sf::Event::KeyReleased:
+			switch (evnt.key.code)
+			{
+			case sf::Keyboard::W: menu->MoveUp(); break;
+			case sf::Keyboard::S: menu->MoveDown(); break;
+			case sf::Keyboard::Return: {
+				if (menu->getVisible()) {
+					menu->setPressedItem(menu->getSelectedItem());
+					switch (menu->getSelectedItem()) {
+					case 0: gameStatus = 0; menu->setVisible(false); break;
+						case 1: break;
+						case 2: this->window->close(); break;
+					}
+				}
+				break; 
+			}
+			case sf::Keyboard::Escape: {
+				menu->setVisible(!menu->getVisible()); 
+				if (menu->getVisible()) gameStatus = 5;
+			}
+			default:
+				break;
+			}
+
 		}
 	}
 }
@@ -32,14 +58,16 @@ void Game::update()
 	updateDt();
 	updateFPS();
 	upadateEvents();
-	updateBullets();
-	updateInput();
-	updatePlayer();
-	spawnEnemies();
-	updateEnemies();
-	updateText();
-	updateCollision();
-	updateCamera();
+	if (gameStatus == 0) {
+		updateBullets();
+		updateInput();
+		updatePlayer();
+		spawnEnemies();
+		updateEnemies();
+		updateText();
+		updateCollision();
+		updateCamera();
+	}
 }
 
 void Game::updateInput()
@@ -106,7 +134,6 @@ void Game::updateBullets()
 			delete this->bullets.at(counter);
 			this->bullets.erase(this->bullets.begin() + counter);
 			counter--;
-			std::cout << "DELETED\n";
 		}
 		//Куля вийшла за нижню ігрового вікна
 		else if (b->getBound().top > windowDown) {
@@ -167,7 +194,7 @@ void Game::updateCollision()
 	for (auto bullet : bullets) {
 		if (bullet->getSource() == enm) {
 			if (this->player->getCollision().checkDotCollision(bullet->getCollision(), 0.f, 0.f)) {
-				this->player->getHp() -= 4;
+				this->player->getHp() -= 1;
 				delete bullets.at(bulletCount);
 				bullets.erase(bullets.begin() + bulletCount);
 				bulletCount--;
@@ -179,7 +206,6 @@ void Game::updateCollision()
 
 void Game::updateText()
 {
-	if(player->getHp() >= 0)
 	lifeText->setString("Life: " + std::to_string(player->getHp()));
 
 	scoreText->setString("Score: " + std::to_string(score));
@@ -220,7 +246,7 @@ void Game::initText()
 	scoreText->setPosition(sf::Vector2f(windowLeft + 300, windowTop));
 	endText->setCenterPosition(window->mapPixelToCoords((sf::Vector2i)view->getCenter()));
 
-	endText->setScale(sf::Vector2f(3,3));
+	endText->setScale(sf::Vector2f(3, 3));
 	endText->setColor(sf::Color::Red);
 
 }
@@ -280,8 +306,10 @@ void Game::render()
 	this->aim->render(this->window);
 	window->draw(*lifeText);
 	window->draw(*scoreText);
-	if(player->getState() == Dead)
-	window->draw(*endText);
+	if (player->getState() == Dead)
+		window->draw(*endText);
+
+	menu->draw(*window);
 	//-----------------------------------------------//
 	this->window->display();
 }
@@ -315,6 +343,13 @@ void Game::initWindow()
 	this->window->setMouseCursorVisible(false);
 }
 
+void Game::initMenu()
+{
+	menu = new Menu(videoMode.width, videoMode.height);
+	menu->setBackgroundSize(window->getSize().x, window->getSize().y);
+	menu->setBackgroundPos(0, 0);
+}
+
 void Game::initCamera()
 {
 	view = camera.getView();
@@ -331,8 +366,8 @@ void Game::initCamera()
 void Game::initBackGround()
 {
 	backGround.setTexture(*stuff->getTexture("BackGround"));
-	backGround.scale(1.5,1.5);
-	backGround.move(-600,-240);
+	backGround.scale(1.5, 1.5);
+	backGround.move(-600, -240);
 }
 
 void Game::initVariables()
@@ -355,6 +390,7 @@ void Game::initVariables()
 
 	numOfEnemies = 0;
 	maxNumOfEnemies = 100;
+	gameStatus = 5;
 }
 
 void Game::initPlayer()
@@ -389,6 +425,7 @@ void Game::initSound()
 	//Фонова музика
 	audio["BG_MUSIC"] = new Audio;
 	audio["BG_MUSIC"]->setSound("Sounds/bgMusic.ogg", 70);
+	audio["BG_MUSIC"]->setLoop(true);
 	audio["BG_MUSIC"]->play();
 }
 
