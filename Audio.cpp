@@ -47,3 +47,8 @@ void Audio::setLoop(bool loop)
 {
 	sound->setLoop(loop);
 }
+
+void Audio::pause()
+{
+	sound->pause();
+}

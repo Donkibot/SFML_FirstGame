@@ -28,13 +28,18 @@ void Game::upadateEvents()
 		case sf::Event::KeyReleased:
 			switch (evnt.key.code)
 			{
-			case sf::Keyboard::W: menu->MoveUp(); break;
-			case sf::Keyboard::S: menu->MoveDown(); break;
+			case sf::Keyboard::W: if(menu->getPressedItem()!=1) menu->MoveUp(); break;
+			case sf::Keyboard::S: if (menu->getPressedItem() != 1) menu->MoveDown(); break;
 			case sf::Keyboard::Return: {
 				if (menu->getVisible()) {
 					menu->setPressedItem(menu->getSelectedItem());
 					switch (menu->getSelectedItem()) {
-					case 0: gameStatus = 0; menu->setVisible(false); break;
+					case 0: {
+						gameStatus = 0; 
+						menu->setVisible(false); 
+						audio["BG_MUSIC"]->play();
+						break; 
+					}
 						case 1: break;
 						case 2: this->window->close(); break;
 					}
@@ -42,8 +47,20 @@ void Game::upadateEvents()
 				break; 
 			}
 			case sf::Keyboard::Escape: {
-				menu->setVisible(!menu->getVisible()); 
-				if (menu->getVisible()) gameStatus = 5;
+				if (menu->getPressedItem() != 1) {
+					menu->setVisible(!menu->getVisible());
+					if (menu->getVisible()) {
+						gameStatus = 5;
+						audio["BG_MUSIC"]->pause();
+					}
+					else {
+						gameStatus = 0;
+						audio["BG_MUSIC"]->play();
+					}
+				}
+				else {
+					menu->setPressedItem(5);
+				}
 			}
 			default:
 				break;
@@ -346,8 +363,11 @@ void Game::initWindow()
 void Game::initMenu()
 {
 	menu = new Menu(videoMode.width, videoMode.height);
-	menu->setBackgroundSize(window->getSize().x, window->getSize().y);
-	menu->setBackgroundPos(0, 0);
+	menu->setBackgroundSize(window->getSize().x*1.6, window->getSize().y*1.6);
+	menu->setBackgroundPos(-200, -200);
+	menu->setInfRectSize(window->getSize().x*1.6, window->getSize().y*1.6);
+	menu->setInfRectPos(-200, -200);
+
 }
 
 void Game::initCamera()
@@ -366,7 +386,7 @@ void Game::initCamera()
 void Game::initBackGround()
 {
 	backGround.setTexture(*stuff->getTexture("BackGround"));
-	backGround.scale(1.5, 1.5);
+	backGround.scale(1.6, 1.6);
 	backGround.move(-600, -240);
 }
 
@@ -408,7 +428,7 @@ void Game::initSound()
 {
 	//«вук постр≥лу
 	audio["SHOOT"] = new Audio;
-	audio["SHOOT"]->setSound("Sounds/pistol.wav", 50);
+	audio["SHOOT"]->setSound("Sounds/pistol.wav", 40);
 
 	//«вук шагу
 	audio["FOOTSTEP"] = new Audio;
@@ -426,7 +446,7 @@ void Game::initSound()
 	audio["BG_MUSIC"] = new Audio;
 	audio["BG_MUSIC"]->setSound("Sounds/bgMusic.ogg", 70);
 	audio["BG_MUSIC"]->setLoop(true);
-	audio["BG_MUSIC"]->play();
+	
 }
 
 void Game::initStuff()

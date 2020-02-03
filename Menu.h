@@ -13,10 +13,15 @@ public:
 	void draw(sf::RenderWindow &window);
 	void MoveUp();
 	void MoveDown();
-	void initBackground();
-	void loadTexture(std::string path);
+	void initBackground(sf::RectangleShape*& rect, sf::Texture* texture);
+	void loadTexture(sf::Texture*& texture,std::string path);
+
 	void setBackgroundSize(float width, float height);
 	void setBackgroundPos(float x, float y);
+
+	void setInfRectSize(float width, float height);
+	void setInfRectPos(float x, float y);
+
 	int getSelectedItem();
 	void setPressedItem(int item);
 	int getPressedItem();
@@ -29,7 +34,9 @@ private:
 	int pressedItem;
 	sf::Font font;
 	Text_Information menu[MAX_NUMBER_OF_ITEMS];
-	sf::Texture* texture;
+	sf::Texture* backTexture;
+	sf::Texture* aboutGame;
 	sf::RectangleShape* backGround;
+	sf::RectangleShape* informationRectangle;
 };
 
